@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f9a30040-4cdb-4fc2-bd18-511b21914953" name="Changes" comment="" />
+    <list default="true" id="f9a30040-4cdb-4fc2-bd18-511b21914953" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Adventurers-Haven/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Adventurers-Haven/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Sail.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Sail.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/SailManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/SailManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Ship.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Ship.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/ShipController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/ShipController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/ShipNavigationManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/ShipNavigationManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/SteeringWheelManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/SteeringWheelManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/WeatherController.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/WeatherController.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/WeatherPhenomenon.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/WeatherPhenomenon.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/BERCEST STUDIO/LP_MedievalShip/Scenes/DemoScene.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/BERCEST STUDIO/LP_MedievalShip/Scenes/DemoScene.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/EditorBuildSettings.asset" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,9 +46,7 @@
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Sail.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Ship.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/WeatherPhenomenon.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/AdventurersHaven/Code/Scripts/Needs/NeedSettings.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -44,7 +62,7 @@
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/reference-issue-1/sail&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/needs-system&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -144,6 +162,7 @@
       <workItem from="1744370629571" duration="49000" />
       <workItem from="1744370728942" duration="13377000" />
       <workItem from="1744676276386" duration="1926000" />
+      <workItem from="1744801713264" duration="3048000" />
     </task>
     <servers />
   </component>
