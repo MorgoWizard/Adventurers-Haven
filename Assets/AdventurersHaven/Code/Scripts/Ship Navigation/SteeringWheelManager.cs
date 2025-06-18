@@ -2,66 +2,53 @@ using UnityEngine;
 
 public class SteeringWheelManager : MonoBehaviour
 {
-    [SerializeField] private Transform steeringWheelTransform; // Трансформ штурвала
+    [SerializeField] private Transform steeringWheelTransform;
+    [SerializeField] private float maxRotationCount = 2.5f;
+    [SerializeField] private float maxRudderAngle = 30f;
     
-    private float _lastRotation; // Последний угол поворота
+    private Quaternion _lastRotation;
+    private float _totalRotation;
+    private float _defaultRotation;
     private float _maxRotationAngle;
     
-    [SerializeField] private float maxRotationCount;
-    private float _rotationCount; // Количество полных оборотов
-    
-    private float _defaultRotation;
-
-    [SerializeField] private float maxRudderAngle;
     public float RudderAngle { get; private set; }
 
     private void Start()
     {
-        _lastRotation = steeringWheelTransform.eulerAngles.z; // Инициализируем начальный угол
-        _defaultRotation = _lastRotation;
+        _lastRotation = steeringWheelTransform.localRotation;
+        _defaultRotation = _lastRotation.eulerAngles.x;
         _maxRotationAngle = maxRotationCount * 360f;
+        _totalRotation = 0f;
     }
 
     private void Update()
     {
-        // Получаем текущий угол поворота штурвала по оси Z
-        float currentRotation = steeringWheelTransform.eulerAngles.z;
-
-        // Находим разницу между текущим и предыдущим углом
-        float deltaRotation = currentRotation - _lastRotation;
-
-        switch (deltaRotation)
+        Quaternion currentRot = steeringWheelTransform.localRotation;
+        
+        Quaternion deltaRotation = currentRot * Quaternion.Inverse(_lastRotation);
+        float deltaAngle = deltaRotation.eulerAngles.x;
+        
+        if (deltaAngle > 180f) deltaAngle -= 360f;
+        
+        _totalRotation += deltaAngle;
+        
+        if (Mathf.Abs(_totalRotation) > _maxRotationAngle)
         {
-            // Учитываем переход через 360 градусов
-            case > 180f:
-                deltaRotation -= 360f; // Переход по часовой стрелке
-                break;
-            case < -180f:
-                deltaRotation += 360f; // Переход против часовой стрелки
-                break;
+            _totalRotation = Mathf.Sign(_totalRotation) * _maxRotationAngle;
+            float clampedAngle = _defaultRotation + _totalRotation;
+            if (Mathf.Abs(Mathf.DeltaAngle(steeringWheelTransform.localEulerAngles.x, clampedAngle)) > 1)
+            {
+                steeringWheelTransform.localRotation = Quaternion.Euler(
+                    clampedAngle,
+                    currentRot.eulerAngles.y,
+                    currentRot.eulerAngles.z
+                );
+            }
+
         }
         
-        // Добавляем изменение угла к общему количеству оборотов
-        _rotationCount += deltaRotation / 360f;
+        RudderAngle = maxRudderAngle * (_totalRotation / _maxRotationAngle);
         
-        RudderAngle = maxRudderAngle * (_rotationCount / maxRotationCount);
-        
-        // ограничение поворота при достижении максимального угла
-        if (_rotationCount > maxRotationCount)
-        {
-            steeringWheelTransform.eulerAngles = new Vector3(steeringWheelTransform.eulerAngles.x,steeringWheelTransform.eulerAngles.y, _defaultRotation + _maxRotationAngle);
-        }
-        else if (_rotationCount < -maxRotationCount)
-        {
-            steeringWheelTransform.eulerAngles = new Vector3(steeringWheelTransform.eulerAngles.x,steeringWheelTransform.eulerAngles.y, _defaultRotation - _maxRotationAngle);
-        }
-
-        // Обновляем последний угол
-        _lastRotation = currentRotation;
-    }
-
-    public float GetRotationCount()
-    {
-        return _rotationCount; // Возвращаем количество оборотов
+        _lastRotation = currentRot;
     }
 }

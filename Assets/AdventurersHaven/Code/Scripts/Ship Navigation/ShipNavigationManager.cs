@@ -2,11 +2,15 @@ using UnityEngine;
 
 public class ShipNavigationManager: MonoBehaviour
 {
-    private Ship _ship;
+    private ShipModel _shipModel;
+    public ShipModel ShipModel => _shipModel;
+
+    [SerializeField] private Transform _shipTransform;
+    
     [SerializeField] private SailManager _sailManager;
     
     [SerializeField] private SteeringWheelManager _steeringWheel;
-    private WeatherController _weatherController = new();
+    [SerializeField] private WeatherManager _weatherManager;
 
     [SerializeField] private AnimationCurve _sailEfficiencyCurve = new AnimationCurve(
         new Keyframe(1f, 1f), // 0° - 100%
@@ -23,62 +27,53 @@ public class ShipNavigationManager: MonoBehaviour
 
     private void Initialize()
     {
-        _ship = new Ship();
-        _sailManager.Initialize(new Sail(_ship));
+        _shipModel = new ShipModel();
+        _sailManager.Initialize(new Sail(_shipModel));
         
-        _weatherController.Initialize();
+        _weatherManager.Initialize();
     }
 
     private void FixedUpdate()
     {
         RotateShip();
         MoveShip();
-        
-        // Debug.Log($"{_ship.GetDirection()} / {_sailManager.Sail.GetGlobalDirection()}");
     }
 
     private void RotateShip()
     {
         // TODO: Add speed affect to rotation
-        _ship.Rotate(_steeringWheel.RudderAngle * Time.fixedDeltaTime);
+        _shipModel.Rotate(_steeringWheel.RudderAngle * Time.fixedDeltaTime);
+        _shipTransform.Rotate(Vector3.up ,_steeringWheel.RudderAngle * Time.fixedDeltaTime);
     }
 
     private void MoveShip()
     {
-        _ship.Move(_ship.GetDirection() * (CalculateShipSpeed() * Time.fixedDeltaTime));
-        
-        _ship.Move(_weatherController.Stream.GetDirection() * (_weatherController.Stream.GetStrength() * Time.fixedDeltaTime));
+        _shipModel.Move(_shipModel.Direction * (CalculateShipSpeed() * Time.fixedDeltaTime));
     }
 
     public float CalculateShipSpeed()
     {
-        // TODO: Add wind strength
-        if (_ship == null)
+        if (_shipModel == null)
         {
             return 0;
         }
         
-        return _ship.GetBaseSpeed() * GetSailEfficiency();
+        return _shipModel.BaseSpeed * GetSailEfficiency();
     }
 
     public Vector2 GetWindDirection()
     {
-        return _weatherController.Wind?.GetDirection() ?? Vector2.zero;
-    }
-
-    public Vector2 GetShipDirection()
-    {
-        return _ship.GetDirection();
+        return _weatherManager.Wind?.GetDirection() ?? Vector2.zero;
     }
 
     public float GetSailEfficiency()
     {
-        if (_sailManager.Sail == null || _weatherController.Wind == null)
+        if (_sailManager.Sail == null || _weatherManager.Wind == null)
         {
             return 0;
         }
         
-        float dotProduct = Vector2.Dot(_weatherController.Wind.GetDirection(),
+        float dotProduct = Vector2.Dot(_weatherManager.Wind.GetDirection(),
             _sailManager.Sail.GetGlobalDirection());
         
         return _sailEfficiencyCurve.Evaluate(dotProduct);
@@ -101,11 +96,11 @@ public class ShipNavigationManager: MonoBehaviour
 
         // 1. Ветер (синий)
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(shipPos, _weatherController.Wind.GetDirection().normalized * arrowLength);
+        Gizmos.DrawLine(shipPos, _weatherManager.Wind.GetDirection().normalized * arrowLength);
 
         // 2. Направление корабля (желтый)
         Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(shipPos, _ship.GetDirection());
+        Gizmos.DrawRay(shipPos, _shipModel.Direction);
         
         // 3. Направление паруса (magenta)
         Gizmos.color = Color.magenta;

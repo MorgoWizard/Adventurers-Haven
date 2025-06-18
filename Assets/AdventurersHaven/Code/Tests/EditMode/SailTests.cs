@@ -3,27 +3,27 @@ using NUnit.Framework;
 
 public class SailTests
 {
-    private Ship _ship;
+    private ShipModel _shipModel;
     private Sail _sail;
 
     [SetUp]
     public void Setup()
     {
-        _ship = new Ship();
-        _sail = new Sail(_ship);
+        _shipModel = new ShipModel();
+        _sail = new Sail(_shipModel);
     }
 
     [TearDown]
     public void Teardown()
     {
         _sail = null;
-        _ship = null;
+        _shipModel = null;
     }
 
     [Test]
     public void Sail_InitialState_HasCorrectDefaults()
     {
-        Assert.AreEqual(_ship.GetDirection(), _sail.GetGlobalDirection());
+        Assert.AreEqual(_shipModel.Direction, _sail.GetGlobalDirection());
         Assert.AreEqual(0f, _sail.GetCurrentSailAngle());
     }
 
@@ -67,7 +67,7 @@ public class SailTests
     public void GetGlobalDirection_AfterShipRotation_Correct()
     {
         // Поворачиваем корабль на 90°
-        _ship.Rotate(90f);
+        _shipModel.Rotate(90f);
         
         // Парус без локального поворота должен смотреть вверх
         Vector2 expectedDirection = Vector2.down;

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2a9cf88e7b643f499ea76fff88c2edb, type: 3}
   m_Name: SO_NeedSettings_Hunger
   m_EditorClassIdentifier: 
-  MaxValue: 100
+  MaxValue: 200
   MinValue: 0
   ConsumptionPerSecond: 1

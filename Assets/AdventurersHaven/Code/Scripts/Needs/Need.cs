@@ -1,5 +1,4 @@
 using System;
-using UnityEngine;
 
 public class Need
 {
@@ -19,7 +18,7 @@ public class Need
             float newValue = Math.Clamp(value, _minValue, _maxValue);
      
             _currentValue = newValue;
-            OnValueChanged?.Invoke(_currentValue);
+            OnValueChanged?.Invoke(_currentValue/_maxValue);
         }
     }
     

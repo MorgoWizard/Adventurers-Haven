@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class SailManager : MonoBehaviour
 {
-    [SerializeField] private Transform sailTransform; // Трансформ паруса
+    [SerializeField] private float _sailRotationSpeed = 15f;
+    [SerializeField] private Transform _sailTransform;
     
     private Sail _sail;
     public Sail Sail => _sail;
     
-    private float _lastRotation;
-
-    private void Start()
-    {
-        _lastRotation = sailTransform.eulerAngles.z; // Инициализируем начальный угол
-    }
+    private bool _isRotating = false;
+    
+    private float _speedModifier = 1f;
 
     public void Initialize(Sail newSail)
     {
@@ -21,26 +19,27 @@ public class SailManager : MonoBehaviour
 
     private void Update()
     {
-        // Получаем текущий угол поворота штурвала по оси Z
-        float currentRotation = sailTransform.eulerAngles.z;
-
-        // Находим разницу между текущим и предыдущим углом
-        float deltaRotation = currentRotation - _lastRotation;
-        
-        switch (deltaRotation)
+        if (_isRotating)
         {
-            // Учитываем переход через 360 градусов
-            case > 180f:
-                deltaRotation -= 360f; // Переход по часовой стрелке
-                break;
-            case < -180f:
-                deltaRotation += 360f; // Переход против часовой стрелки
-                break;
+            _sail.Rotate(_sailRotationSpeed * Time.deltaTime * _speedModifier);
+            _sailTransform.localEulerAngles = new Vector3(_sailTransform.localEulerAngles.x, _sail.GetCurrentSailAngle(), _sailTransform.localEulerAngles.z);
         }
-        
-        if(_sail != null && deltaRotation != 0) _sail.Rotate(deltaRotation);
+    }
+    
+    public void RotateLeft()
+    {
+        _isRotating = true;
+        _speedModifier = -1f;
+    }
 
-        // Обновляем последний угол
-        _lastRotation = currentRotation;
+    public void RotateRight()
+    {
+        _isRotating = true;
+        _speedModifier = 1f;
+    }
+
+    public void StopRotating()
+    {
+        _isRotating = false;
     }
 }

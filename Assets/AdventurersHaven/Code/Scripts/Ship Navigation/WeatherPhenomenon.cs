@@ -2,21 +2,12 @@ using UnityEngine;
 
 public class WeatherPhenomenon
 {
-    public enum WeatherType
-    {
-        DEFAULT,
-        STORM,
-        STILL
-    }
-    
     private Vector2 _direction;
-    private float _strength = 5f;
-
-    private WeatherType currentWeather = WeatherType.DEFAULT;
+    private const float Strength = 5f;
 
     public WeatherPhenomenon()
     {
-        SetDirection(RandomizeDirection());
+        SetRandomDirection();
     }
 
     private void SetDirection(Vector2 newDirection)
@@ -31,9 +22,14 @@ public class WeatherPhenomenon
         return new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle));
     }
 
+    public void SetRandomDirection()
+    {
+        SetDirection(RandomizeDirection());
+    }
+
     public float GetStrength()
     {
-        return _strength;
+        return Strength;
     }
 
     public Vector2 GetDirection()
